@@ -86,7 +86,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
 			var that = this;
 			var dataModel = this.getOwnerComponent().getModel("ARAC");
 			var filters = [];
-			var CountingType = "A";
+			var CountingType = "V";
 			var WarehouseNum = i;
 			filters.push(new sap.ui.model.Filter("CountingType", sap.ui.model.FilterOperator.EQ, CountingType));
 			filters.push(new sap.ui.model.Filter("WarehouseNum", sap.ui.model.FilterOperator.EQ, WarehouseNum));
@@ -97,11 +97,10 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
 					var List = [];
 					data.results.forEach(function (k) {
 						List.push({
-							CountingType: k.CountingType,
-							WarehouseNum: k.WarehouseNum,
 							Matnr: k.Matnr,
-							CountingAmount: k.CountingAmount,
-							CountingUnit: k.CountingUnit
+		    				Maktx: k.Maktx,
+							SayimMktr: k.CountingAmount,
+							SayimBrm: k.CountingUnit
 						});
 					});
 					that.getView().getModel("sayimmalzemeListModel").setProperty("/malzemeList", List);
@@ -162,11 +161,10 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
 					var List = [];
 					data.results.forEach(function (k) {
 						List.push({
-							CountingType: k.CountingType,
-							WarehouseNum: k.WarehouseNum,
 							Matnr: k.Matnr,
-							CountingAmount: k.CountingAmount,
-							CountingUnit: k.CountingUnit
+		    				Maktx: k.Maktx,
+							SayimMktr: k.CountingAmount,
+							SayimBrm: k.CountingUnit
 						});
 					});
 					that.getView().getModel("sayimmalzemeListModel").setProperty("/malzemeList", List);
@@ -234,7 +232,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
 		CloseMlzList: function () {
 			this._helpMlzList.destroy();
 			this._helpMlzList = undefined;
-			this._helpMlzList.close()
+			//this._helpMlzList.close()
 		},
 		ConfirmMlzEkle: function (e) {
 			var t = e.getParameter("selectedContexts");
@@ -407,7 +405,12 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
 					if (s.length >= 1) {
 						t.getView().getModel("sayimmalzemeListModel").setProperty("/malzemeList", [])
 					}
-					t.showMessages(e).then(t.showMessages(e))
+					/*setTimeout(function () {
+						t.onNavBack();
+					}.bind(this), 1500);*/
+					
+					t.showMessages(e).then(t.showMessages(e));
+					
 				},
 				error: function (e) {
 					debugger;
@@ -440,7 +443,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
 			this.getOwnerComponent().getModel("oMsgModel").refresh(true)
 		},
 		onMessageClose: function () {
-			this.oMessage.close()
+			this.oMessage.close();
+			this.onNavBack();
 		},
 		onScanMaterial: function (e) {
 			debugger;

@@ -1,0 +1,13 @@
+{
+    "base": "./dist",
+    "conn_usestrictssl" : false,
+    "conn_server": "https://fioridev.duzey.com.tr:443",
+    "conn_client" : "001",
+    "conn_user": "EACAR",
+    "conn_password": "Prodea2022",
+    "abap_package": "ZDZY_OTOMAT",
+    "abap_bsp": "ZDUZEY_FIO_OTO",
+    "abap_bsp_text": "Otomat Araç Uygulaması",
+    "abap_transport" : "DGDK900300",
+    "calcappindex": true
+}
